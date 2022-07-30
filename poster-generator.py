@@ -124,8 +124,8 @@ def getKeyWord(randList):
     keywordList = []
     for keyword in randList :
         query = mydb.cursor()
-        sql = 'select keyword from keyword_table where id = "%s";' 
-        query.execute(sql,keyword)
+        sql = 'select keyword from keyword_table where id = ' + str(keyword) +';'
+        query.execute(sql)
         #print(keyword)
         keywordList.append(query.fetchall()[0][0]) 
     return keywordList
@@ -145,11 +145,11 @@ if __name__ == "__main__":
     row = countdb(mydb)
     randList = getRandId(row)
     keywordList = getKeyWord(randList)
-    #print(keywordList)
+    print(keywordList)
     #config = init(keyword1,keyword2,keyword3,keyword4)
     #print(json.dumps(vars(init(keyword1,keyword2,keyword3,keyword4))))
     body = json.dumps(vars(init(keywordList)))
     #print(body)
     #poster server api
-    rep=requests.post("http://1.117.71.185:8000/poster",headers={'content-type':'application/json'},data=body)
-    print(rep.text)
+    #rep=requests.post("http://127.0.0.1:8000/poster",headers={'content-type':'application/json'},data=body)
+    #print(rep.text)
